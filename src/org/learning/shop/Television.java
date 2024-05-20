@@ -1,12 +1,12 @@
 package org.learning.shop;
 
-public class Televison extends Product{
+public class Television extends Product{
     // Attributi
     private int height;
     private int width;
     protected boolean smart;
 
-    public Televison(String name,String desc, String price, int height, int width,boolean smart) {
+    public Television(String name, String desc, String price, int height, int width, boolean smart) {
         super(name, desc, price);
         this.height = height;
         this.width = width;
@@ -15,7 +15,7 @@ public class Televison extends Product{
 
     @Override
     public String toString() {
-        return "Nome:" + name + " Desc:" + desc + " price" + price + " Height:" + height + " Width" + width + " Smart" + smart;
+        return "TELEVISION" + " Name:" + name + " Desc:" + desc + " Price" + price + " Height:" + height + " Width" + width + " Smart" + smart;
     }
 
 }
