@@ -10,7 +10,8 @@ public class Product {
     protected String name;
     protected String desc;
     protected BigDecimal price;
-    private int iva;
+    protected int iva;
+    private boolean fidelity;
 
     // Costruttore
     public Product(String name,String desc, String price){
@@ -19,10 +20,17 @@ public class Product {
         this.desc = desc;
         this.price = new BigDecimal(price);
         iva = 22;
+        fidelity = false;
     }
 
     // Metodi
-
+    public BigDecimal getFidelityPrice() {
+        BigDecimal div = new BigDecimal(100);
+        BigDecimal mul = new BigDecimal(iva);
+        BigDecimal fullPrice = price.divide(div, 2, RoundingMode.CEILING).multiply(mul).add(price);
+        BigDecimal discount = fullPrice.multiply(new BigDecimal("0.02"));
+        return fullPrice.subtract(discount);
+    }
     public BigDecimal getFullPrice() {
         BigDecimal div = new BigDecimal(100);
         BigDecimal mul = new BigDecimal(iva);

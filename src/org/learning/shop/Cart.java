@@ -1,5 +1,7 @@
 package org.learning.shop;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -17,17 +19,17 @@ public class Cart {
             System.out.println("2 Televisione");
             System.out.println("3 Cuffie");
             int prodType;
-
             prodType = Integer.parseInt(scanner.nextLine());
+
+            System.out.println("Inserisci il nome del prodotto");
+            String name = scanner.nextLine();
+            System.out.println("Inserisci la descrizione del prodotto");
+            String desc = scanner.nextLine();
+            System.out.println("Inserisci il prezzo del prodotto");
+            String price = scanner.nextLine();
 
             switch (prodType) {
                 case 1:
-                    System.out.println("Inserisci il nome dello smartphone");
-                    String name = scanner.nextLine();
-                    System.out.println("Inserisci la descrizione dello smartphone");
-                    String desc = scanner.nextLine();
-                    System.out.println("Inserisci il prezzo dello smartphone");
-                    String price = scanner.nextLine();
                     System.out.println("Inserisci la memoria dello smartphone");
                     String storage = scanner.nextLine();
 
@@ -35,50 +37,40 @@ public class Cart {
                     cart[i] = s;
                     break;
                 case 2:
-                    System.out.println("Inserisci il nome del televisore");
-                    String name2 = scanner.nextLine();
-                    System.out.println("Inserisci la descrizione del televisore");
-                    String desc2 = scanner.nextLine();
-                    System.out.println("Inserisci il prezzo del televisore");
-                    String price2 = scanner.nextLine();
                     System.out.println("Inserisci l' altezza del televisore");
                     int height = Integer.parseInt(scanner.nextLine());
                     System.out.println("Inserisci la larghezza del televisore");
                     int width = Integer.parseInt(scanner.nextLine());
                     System.out.println("Il televisore è smart? s/n");
                     boolean smart;
-                    if (scanner.nextLine().equals("s")) {
+                    String input2 = scanner.nextLine();
+                    if (input2.equals("s")) {
                         smart = true;
-                    } else if (scanner.nextLine().equals("n")) {
+                    } else if (input2.equals("n")) {
                         smart = false;
                     } else {
                         smart = false;
                     }
-                    Television t = new Television(name2, desc2, price2, height, width, smart);
+                    Television t = new Television(name, desc, price, height, width, smart);
                     cart[i] = t;
 
                     System.out.println(t.smart);
                     break;
                 case 3:
-                    System.out.println("Inserisci il nome delle cuffie");
-                    String name3 = scanner.nextLine();
-                    System.out.println("Inserisci la descrizione delle cuffie");
-                    String desc3 = scanner.nextLine();
-                    System.out.println("Inserisci il prezzo delle cuffie");
-                    String price3 = scanner.nextLine();
                     System.out.println("Inserisci il colore delle cuffie");
                     String color = scanner.nextLine();
                     System.out.println("Le cuffie sono wireless? s/n");
                     boolean wireless;
-                    if (scanner.nextLine().equals("s")) {
+                    String input3 = scanner.nextLine();
+                    if (input3.equals("s")) {
                         wireless = true;
-                    } else if (scanner.nextLine().equals("n")) {
+                    } else if (input3.equals("n")) {
                         wireless = false;
                     } else {
                         wireless = false;
                     }
 
-                    Headphones h = new Headphones(name3, desc3, price3, color, wireless);
+                    Headphones h = new Headphones(name, desc, price, color, wireless);
                     cart[i] = h;
 
                     break;
@@ -88,6 +80,24 @@ public class Cart {
             }
         }
         System.out.println(Arrays.toString(cart));
+
+        System.out.println("Possiedi una carta fedeltà? s/n");
+        String fidelity = scanner.nextLine();
+        BigDecimal totPrice = BigDecimal.ZERO;
+        if (fidelity.equals("s")) {
+            for (int i = 0; i < cart.length; i++) {
+                System.out.println(cart[i].getFidelityPrice());
+                totPrice = totPrice.add(cart[i].getFidelityPrice());
+            }
+        } else if (fidelity.equals("n")) {
+            for (int i = 0; i < cart.length; i++) {
+                System.out.println(cart[i].getFullPrice());
+                totPrice = totPrice.add(cart[i].getFullPrice());
+            }
+        } else {
+            System.out.println("Tasto errato");
+        }
+        System.out.println(totPrice.setScale(2, RoundingMode.HALF_EVEN));
         scanner.close();
     }
 }
